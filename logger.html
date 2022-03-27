@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="//unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+<script src="//unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+		margin:0 auto;
+		width:90%;
+        height: 85%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+<title>Soil And Geo Logger</title>
+</head>
+<body>
+<div id="map"></div>
+</body>
+<script>
+// 仮 摂津峡
+var lon = 34.877647854266584;
+var lat = 135.58724326280114;
+
+var map = L.map('map', {
+	center: [lon,lat],
+	zoom: 17,
+});
+var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+});
+tileLayer.addTo(map);
+
+var marker = L.marker([lon, lat]);
+marker.addTo(map);
+
+var pop = L.popup();
+
+var str = "";
+str += createHrefTag("https://www.google.co.jp/maps?q=" + lat + "," + lon + "", "地図") + "  ";
+str += createHrefTag("https://soil-inventory.rad.naro.go.jp/figure.html?lat=" + lon + "&lng=" + lat + "&zoom=15", "土質") + "  ";
+str += createHrefTag("https://gbank.gsj.jp/seamless/seamless2015/2d/?center=" + lon + "," + lat + "&z=12&marker=" + lon + "," + lat, "地質");
+
+// 吹き出しに表示する文
+pop.setContent(str);
+
+// マーカーと吹き出しの関連付け
+marker.bindPopup(pop);
+
+// 吹き出しを開く
+marker.openPopup();
+
+function createHrefTag(url, label){
+	return '<a href="' + url + '" target=\"_blank\">' + label + '</a>';
+}
+
+</script>
+</html>
