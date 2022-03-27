@@ -31,12 +31,12 @@
 <div id="map"></div>
 </body>
 <script>
-// 仮 摂津峡
-var lon = 34.877647854266584;
-var lat = 135.58724326280114;
+// 仮 摂津峡　経度(lng)の方が数字が大きい
+var lat = 34.877647854266584;
+var lng = 135.58724326280114;
 
 var map = L.map('map', {
-	center: [lon,lat],
+	center: [lat,lng],
 	zoom: 17,
 });
 var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -45,15 +45,15 @@ var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 tileLayer.addTo(map);
 
 // @ToDo クリックしたら下記のコードを実行できるようにする
-var marker = L.marker([lon, lat]);
+var marker = L.marker([lat, lng]);
 marker.addTo(map);
 
 var pop = L.popup();
 
 var str = "";
-str += createHrefTag("https://www.google.co.jp/maps?q=" + lat + "," + lon + "", "地図") + "  ";
-str += createHrefTag("https://soil-inventory.rad.naro.go.jp/figure.html?lat=" + lon + "&lng=" + lat + "&zoom=15", "土質") + "  ";
-str += createHrefTag("https://gbank.gsj.jp/seamless/seamless2015/2d/?center=" + lon + "," + lat + "&z=12&marker=" + lon + "," + lat, "地質");
+str += createHrefTag("https://www.google.co.jp/maps?q=" + lat + "," + lng + "", "地図") + "  ";
+str += createHrefTag("https://soil-inventory.rad.naro.go.jp/figure.html?lat=" + lat + "&lng=" + lng + "&zoom=15", "土質") + "  ";
+str += createHrefTag("https://gbank.gsj.jp/seamless/seamless2015/2d/?center=" + lat + "," + lng + "&z=12&marker=" + lat + "," + lng, "地質");
 
 // 吹き出しに表示する文
 pop.setContent(str);
