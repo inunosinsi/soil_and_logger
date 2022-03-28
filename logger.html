@@ -77,12 +77,12 @@ function create_osm_map(lat, lng){
 
 function geo_api_success_callback(pos){
 	var lat = pos.coords.latitude;
-	var lon = pos.coords.longitude;
-	create_osm_map(lat, lon);
+	var lng = pos.coords.longitude;
+	create_osm_map(lat, lng);
 }
 
 function geo_api_error_callback(err){
-	create_osm_map(osm_default_lat, osm_default_lon);
+	create_osm_map(osm_default_lat, osm_default_lng);
 }
 
 function createHrefTag(url, label){
@@ -94,7 +94,7 @@ function createHrefTag(url, label){
 	if (location.search.indexOf("landmark=") < 0 && navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(geo_api_success_callback, geo_api_error_callback);
 	}else{
-		create_osm_map(osm_default_lat, osm_default_lon);
+		create_osm_map(osm_default_lat, osm_default_lng);
 	}
 })();
 
